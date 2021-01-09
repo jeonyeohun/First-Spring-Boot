@@ -1,29 +1,23 @@
 package isel.edu.handong.iselweb.service;
 
 import isel.edu.handong.iselweb.domain.Member;
+import isel.edu.handong.iselweb.repository.MemberRepository;
 import isel.edu.handong.iselweb.repository.MemoryMemberRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class MemberServiceTest {
-
-    MemberService memberService;
-    MemoryMemberRepository memoryMemberRepository;
-
-    @BeforeEach
-    public void beforeEach(){
-//        Dependency Injection
-        memberService = new MemberService(new MemoryMemberRepository());
-    }
-
-    @AfterEach
-    void afterEach(){
-        memoryMemberRepository.clearStore();
-    }
+@SpringBootTest
+@Transactional
+public class MemberServiceIntegrationTest {
+    @Autowired MemberService memberService;
+    @Autowired MemberRepository memberRepository;
 
     @Test
     void join() {
